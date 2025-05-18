@@ -3,7 +3,7 @@
 import pandas as pd
 import os
 
-# Ruta al archivo de origen
+# Ruta al archivo de entrada y salida
 base_dir = os.getcwd()
 
 # Definir las rutas a ambos archivos
@@ -16,7 +16,7 @@ df_consolidado = pd.read_excel(archivo_consolidado, sheet_name="CONSOLIDADO SIMP
 # Filtrar la columna "STATUS" para quedarnos solo con las filas que contienen "Firmo"
 df_consolidado_filtrado = df_consolidado[df_consolidado["STATUS"] == "Firmo"]
 
-# Leer la hoja "Consolidado" del segundo archivo Excel (Minutas)
+# Leer la hoja "Consolidado" del segundo archivo Excel
 df_minutas = pd.read_excel(archivo_minutas, sheet_name="Consolidado")
 
 # Limpiar los nombres de las columnas en ambos DataFrames
@@ -34,7 +34,7 @@ print(df_consolidado_filtrado.columns)
 print("\nColumnas en df_minutas:")
 print(df_minutas.columns)
 
-# Realizar el merge (intersección) en las columnas 'CODIGO' de df_consolidado y 'codigo' de df_minutas
+# Realizar la intersección en las columnas 'CODIGO' de df_consolidado y 'codigo' de df_minutas
 df_intersectado = pd.merge(df_consolidado_filtrado, df_minutas, left_on="CODIGO", right_on="codigo", how="inner")
 
 # Verificar las columnas después del merge
@@ -50,6 +50,9 @@ columnas_deseadas = [
 
 # Crear el DataFrame final con las columnas seleccionadas
 df_final = df_intersectado[columnas_deseadas]
+
+# Añadir columna 'validacion': True si 'fecha_pago' y 'FECHA DE STATUS' son iguales, False si no
+df_final['validacion'] = df_final['fecha_pago'] == df_final['FECHA DE STATUS']
 
 # Mostrar las primeras filas del DataFrame final para verificar
 print(df_final.head())
