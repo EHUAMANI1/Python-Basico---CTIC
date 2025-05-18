@@ -13,7 +13,7 @@ archivo_salida = os.path.join(base_dir, "Data", "Salida", "FRAME.xlsx")
 
 # Variables deseadas
 variables_deseadas = [
-    "Cod.", "No.", "Dorm.", "Modelo", "Tipo", "Vista", "Piso",
+    "Inmueble", "Cod.", "No.", "Dorm.", "Modelo", "Tipo", "Vista", "Piso",
     "Area c/T (m2)", "Area s/T (m2)", "Status", "Cliente",
     "Precio", "Precio Proyectado"
 ]
